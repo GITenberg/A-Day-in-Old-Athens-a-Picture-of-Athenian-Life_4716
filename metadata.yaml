@@ -1,0 +1,25 @@
+_repo: A-Day-in-Old-Athens-a-Picture-of-Athenian-Life_4716
+creator:
+  author:
+    agent_name: Davis, William Stearns
+    alias: Davis, W. S. (William Stearns)
+    birthdate: 1877
+    deathdate: 1930
+    gutenberg_agent_id: '1557'
+    url: http://www.gutenberg.org/2009/agents/1557
+description: A hypothetical tour of the private and public features of Athens during
+  its political and cultural apex circa 360 B.C.
+gutenberg_bookshelf: Greece
+gutenberg_issued: '2003-12-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '4716'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'Athens (Greece) -- Social life and customs'
+- !lcc 'DF'
+title: A Day in Old Athens; a Picture of Athenian Life
+url: http://www.gutenberg.org/ebooks/4716
