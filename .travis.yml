@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: Pjs1jM/dcfj+M7uKpUczcQs3eJ3SKjy+kgKcnAbm2x/mj0D+WMA5ZHSEcsUjSWZ9+IlyDYi5sdw086f8N/yK6fwUZXQ9+I/T9h7vxXQiAvvM5XnbWfn/ka7n2vWdNzk0ZjUM0j6CatQfe8YflICmh0aALgqVslNZfRui4/eDvkF1aYgi/M3Qyk+RWPiKxzvt6kNgvFNkb9DDuy1uzDVGM9jYojH5tSXqGnp/c4UqzuLUQ/iTWhe6VhnPLn6y6PRi74RvtUJwqt5VKTmORmD1p33hrcdBJZIS0jQ5CVAU4G8sgL1AJw66+mNqnrWDEwL9hRKBzFBmZRvDbrLFhemP9WTNCCjs2bCXMHiozl8ujkquwypygYb6RP36EZoFQUE8TfBsZqbKoJbhLJ8wshh3Eze3Gc6ZBbAQA7bz+4UCmqN3rugS/G9SXpdEKKKObZ/rI6fThIphIV3/BBcy9bM9f1P2KinFqW9G9R086n2j4d3ME6T0UqE1faE2VOzUzxq6fKDy2Tctu4sZIqqKvWM5KLh7RFk7P6T9UIe0+5FXrdiXfVd/EhAI10nPGG5SxkpBKf0la2CMzDTooVM986qCcIT0n8ydSmmi2IIapCctGjfLyWDcipTvodEtXHjJPxa6AmeyIocUXlTqPlljVz26M8b3pl3APzuqOSW4BrW94EQ=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/A-Day-in-Old-Athens-a-Picture-of-Athenian-Life_4716
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
